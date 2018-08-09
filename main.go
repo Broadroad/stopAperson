@@ -39,7 +39,7 @@ func isLessThan21(x, y int) bool {
 		sum += int(sy - '0')
 	}
 
-	if sum < 21 {
+	if sum <= 21 {
 		return true
 	}
 	return false
