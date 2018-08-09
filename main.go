@@ -12,6 +12,8 @@ var (
 	h      bool
 	ans    = 0
 	flags  map[string]bool // x_y means (x,y) -> bool (already or not)
+	max    = 777           // (-777, -777), (-777, 0) (777, 0) (777, 777) is the biggest area
+	min    = -777
 )
 
 func init() {
@@ -53,7 +55,7 @@ func getNumberOfPoint(startX, startY int) int {
 			ty := startY + dy
 
 			str := string(tx) + "_" + string(ty)
-			if isLessThan21(tx, ty) && flags[str] == false {
+			if tx >= min && tx <= max && ty >= min && tx <= max && isLessThan21(tx, ty) && flags[str] == false {
 				flags[str] = true
 				ans++
 				getNumberOfPoint(tx, ty)
