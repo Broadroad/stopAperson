@@ -4,6 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"strconv"
+
+	"github.com/stopAperson/stack"
 )
 
 var (
@@ -83,7 +85,47 @@ func getNumberOfPointRecursive(startX, startY int) {
 // getNumberOfPointNoRecursive
 func getNumberOfPointNoRecursive(startX, startY int) int {
 	// TODO NoRecursive
-	return 1
+	var stack stack.Stack
+	entrance := Position{X: startX, Y: startY}
+	stack.Push(entrance)
+
+	for !stack.IsEmpty() {
+		cur, err := stack.Top()
+		stack.Pop()
+		if err != nil {
+			fmt.Println(err)
+		}
+		curPos, ok := cur.(Position)
+		if !ok {
+			fmt.Println("can not convert")
+		}
+		stx := strconv.Itoa(curPos.X)
+		sty := strconv.Itoa(curPos.Y)
+		str := stx + "_" + sty
+
+		if curPos.X >= min && curPos.X <= max && curPos.Y >= min && curPos.Y <= max && isLessThan21(curPos.X, curPos.Y) && flags[str] == false {
+			flags[str] = true
+			ans++
+		}
+		flags[str] = true
+
+		for dx := -1; dx <= 1; dx++ {
+			for dy := -1; dy <= 1; dy++ {
+				tx := curPos.X + dx
+				ty := curPos.Y + dy
+
+				// rune, string
+				stx := strconv.Itoa(tx)
+				sty := strconv.Itoa(ty)
+				str := stx + "_" + sty
+				if tx >= min && tx <= max && ty >= min && ty <= max && isLessThan21(tx, ty) && flags[str] == false {
+					stack.Push(Position{X: tx, Y: ty})
+				}
+			}
+		}
+
+	}
+	return ans
 }
 
 func main() {
@@ -93,6 +135,7 @@ func main() {
 		return
 	}
 	flags = make(map[string]bool)
-	ret := getNumberOfPoint(startx, starty)
-	fmt.Println(ret)
+
+	ret1 := getNumberOfPointNoRecursive(startx, starty)
+	fmt.Println("Not Recursive answer is: ", ret1)
 }
