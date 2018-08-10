@@ -47,22 +47,37 @@ func isLessThan21(x, y int) bool {
 	return false
 }
 
-// getNumberOfPoint return the number of the points
 func getNumberOfPoint(startX, startY int) int {
+	getNumberOfPointRecursive(startX, startY)
+	return ans
+}
+
+// getNumberOfPointRecursive return the number of the points
+// Recursive resolution
+func getNumberOfPointRecursive(startX, startY int) {
 	for dx := -1; dx <= 1; dx++ {
 		for dy := -1; dy <= 1; dy++ {
 			tx := startX + dx
 			ty := startY + dy
 
-			str := string(tx) + "_" + string(ty)
-			if tx >= min && tx <= max && ty >= min && tx <= max && isLessThan21(tx, ty) && flags[str] == false {
+			// rune, string
+			stx := strconv.Itoa(tx)
+			sty := strconv.Itoa(ty)
+			str := stx + "_" + sty
+
+			if tx >= min && tx <= max && ty >= min && ty <= max && isLessThan21(tx, ty) && flags[str] == false {
 				flags[str] = true
 				ans++
 				getNumberOfPoint(tx, ty)
 			}
 		}
 	}
-	return ans
+}
+
+// getNumberOfPointNoRecursive
+func getNumberOfPointNoRecursive(startX, startY int) int {
+	// TODO NoRecursive
+	return 1
 }
 
 func main() {
