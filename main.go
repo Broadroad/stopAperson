@@ -16,6 +16,11 @@ var (
 	min    = -777
 )
 
+type Position struct {
+	X int
+	Y int
+}
+
 func init() {
 	flag.IntVar(&startx, "x", 0, "startx is start x")
 	flag.IntVar(&starty, "y", 0, "starty is start y")
@@ -70,6 +75,7 @@ func getNumberOfPointRecursive(startX, startY int) {
 				ans++
 				getNumberOfPoint(tx, ty)
 			}
+			flags[str] = true
 		}
 	}
 }
