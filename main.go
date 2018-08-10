@@ -76,8 +76,9 @@ func getNumberOfPointRecursive(startX, startY int) {
 				flags[str] = true
 				ans++
 				getNumberOfPoint(tx, ty)
+			} else {
+				flags[str] = true
 			}
-			flags[str] = true
 		}
 	}
 }
@@ -138,4 +139,7 @@ func main() {
 
 	ret1 := getNumberOfPointNoRecursive(startx, starty)
 	fmt.Println("Not Recursive answer is: ", ret1)
+
+	// ret := getNumberOfPoint(0, 0)
+	// fmt.Println("Recursive answer is:", ret)
 }
