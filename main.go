@@ -104,8 +104,7 @@ func getNumberOfPointNoRecursive(startX, startY int) int {
 		sty := strconv.Itoa(curPos.Y)
 		str := stx + "_" + sty
 
-		if curPos.X >= min && curPos.X <= max && curPos.Y >= min && curPos.Y <= max && isLessThan21(curPos.X, curPos.Y) && flags[str] == false {
-			flags[str] = true
+		if flags[str] == false {
 			ans++
 		}
 		flags[str] = true
